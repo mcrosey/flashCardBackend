@@ -1,7 +1,7 @@
-const { Product, validate } = require('../model/products');
+const { FlashCard , validate } = require('../model/products');
 const express = require('express');
 const router = express.Router();
-
+//product green validate yello
 
 
 router.post('/', async (req, res) => {
@@ -9,41 +9,43 @@ router.post('/', async (req, res) => {
         const { error } = validate(req.body);
         if (error)
             return res.status(400).send(error);
-
-        const product = new Product({
+//product  blue Product green
+        const flashcard = new FlashCard({
             name: req.body.name,
             description: req.body.description,
             category: req.body.category,
-            price: req.body.price,
         });
-
-        await product.save();
-        
-        return res.send(product);
+//product green
+        await FlashCard.save();
+ //product  blue       
+        return res.send(flashcard);
     } catch (ex) {
         return res.status(500).send(`Internal Server Error: ${ex}`);
     }
 });
 
 //finds all
+//product  blut = green
+//products blue
 router.get('/', async (req, res) => {
     try {
-        const products = await Product.find();
-        return res.send(products);
+        const flashcard = await FlashCard.find();
+        return res.send(flashcard);
     }catch (ex) {
         return res.status(500).send(`Internal Server Error: ${ex}`);
     }
 });
 
 //finds just on specific
+//product blue = product gree
 router.get('/:id', async (req, res) => {
     try {
-        const product = await Product.findById(req.params.id);
+        const flashcard = await FlashCard.findById(req.params.id);
 
-        if (!product)
+        if (!flashcard)
             return res.status(400).send(`The product with id "${req.params.id}" does not exsist.`);
-
-            return res.send(product);
+//product blue
+            return res.send(flashcard);
     } catch (ex) {
         return res.status(500).send(`Internal Server Error: ${ex}`);
     }
@@ -53,24 +55,24 @@ router.put('/:id', async (req, res) => {
     try {
         const { error } =validate(req.body);
         if (error) return res.status(400).send(error);
-
-        const product = await Product.findByIdAndUpdate(
+//product blue = product green
+        const flashcard = await FlashCard.findByIdAndUpdate(
             req.params.id,
             {
                 name: req.body.name,
                 description: req.body.description,
                 category: req.body.category,
-                price: req.body.price,
+                // price: req.body.price,
             },
             { new: true }
         );
-
-        if (!product)
+//product blue
+        if (!flashcard)
             return res.status(400).send(`The product with id "${req.params.id}" does not exist.`);
 
-            await product.save();
+            await FlashCard.save();
 
-            return res.send(product);
+            return res.send(flashcard);
     } catch (ex) {
         return res.status(500).send(`Internal Server Error: ${ex}`);
     }
@@ -78,13 +80,13 @@ router.put('/:id', async (req, res) => {
 
 router.delete('/id', async (req, res) => {
     try {
-        
-        const product = await Product.findByIdAndRemove(req.params.id);
+      //produt blue = produce gree  
+        const flashcard = await FlashCard.findByIdAndRemove(req.params.id);
 
         if (!product)
             return res.status(400).send(`The product with id "${res.params.id}" does not exist.`);
-
-            return res.send(product);
+//product blue
+            return res.send(flashcard);
 
     } catch (ex) {
         return res.status(500).send(`Internal Server Error: ${ex}`);
