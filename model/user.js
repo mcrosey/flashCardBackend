@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const Joi = require('joi');
-const { productSchema } = require('./flashcards');
+const { productSchema } = require('./products');
 
 const userSchema = new mongoose.Schema({
     name: { type: String, required: true },
