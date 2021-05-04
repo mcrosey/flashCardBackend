@@ -1,8 +1,7 @@
-const { FlashCard , validate } = require('../model/products');
+const { FlashCard , validate } = require('../model/Flashcard');
 const express = require('express');
 const router = express.Router();
-
-
+const {FlashCardDeck} = require('../model/FlashcardDeck');
 
 router.post('/', async (req, res) => {
     try{
@@ -13,7 +12,6 @@ router.post('/', async (req, res) => {
         const flashcard = new FlashCard({
             question: req.body.question,
             answer: req.body.answer,
-            category: req.body.category,
         });
 
         await flashcard.save();
@@ -27,7 +25,7 @@ router.post('/', async (req, res) => {
 
 router.get('/', async (req, res) => {
     try {
-        const flashcard = await FlashCard.find();
+        const flashcard = await FlashCardDeck.find();
         return res.send(flashcard);
     }catch (ex) {
         return res.status(500).send(`Internal Server Error: ${ex}`);
@@ -37,7 +35,7 @@ router.get('/', async (req, res) => {
 
 router.get('/:id', async (req, res) => {
     try {
-        const flashcard = await FlashCard.findById(req.params.id);
+        const flashcard = await FlashCardDeck.findById(req.params.id);
 
         if (!flashcard)
             return res.status(400).send(`The product with id "${req.params.id}" does not exsist.`);
@@ -58,8 +56,6 @@ router.put('/:id', async (req, res) => {
             {
                 question: req.body.question,
                 answer: req.body.answer,
-                category: req.body.category,
-                // price: req.body.price,
             },
             { new: true }
         );
@@ -67,7 +63,7 @@ router.put('/:id', async (req, res) => {
         if (!flashcard)
             return res.status(400).send(`The product with id "${req.params.id}" does not exist.`);
 
-            await FlashCard.save();
+            await flashcard.save();
 
             return res.send(flashcard);
     } catch (ex) {
@@ -78,7 +74,7 @@ router.put('/:id', async (req, res) => {
 router.delete('/id', async (req, res) => {
     try {
       
-        const flashcard = await FlashCard.findByIdAndRemove(req.params.id);
+        const flashcard = await FlashCardDeck.findByIdAndRemove(req.params.id);
 
         if (!product)
             return res.status(400).send(`The product with id "${res.params.id}" does not exist.`);

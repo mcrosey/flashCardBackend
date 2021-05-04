@@ -1,13 +1,12 @@
 const connectDB = require('./startup/db');
 const express = require('express');
 const app = express();
-const flashcards = require('./routes/flashcards');
-//const User = require('./model/user');
+const flashcards = require('./routes/flashcardCollection');
 
 connectDB();
 
 app.use(express.json());
-app.use('/api/products', flashcards); 
+app.use('/api/flashcards', flashcards); 
 
 const port = process.env.PORT || 5000;
 app.listen(port, () => {
