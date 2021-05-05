@@ -1,4 +1,4 @@
-const FlashCard = require('../model/Flashcard');
+const { Flashcard , validate } = require('../model/Flashcard');
 const express = require('express');
 const router = express.Router();
 const {Deck} = require('../model/Deck');
@@ -9,7 +9,7 @@ router.post('/', async (req, res) => {
         if (error)
             return res.status(400).send(error);
 
-        const flashcard = new FlashCard({
+        const flashcard = new Flashcard({
             question: req.body.question,
             answer: req.body.answer,
         });
@@ -51,7 +51,7 @@ router.put('/:id', async (req, res) => {
         const { error } =validate(req.body);
         if (error) return res.status(400).send(error);
 
-        const flashcard = await FlashCard.findByIdAndUpdate(
+        const flashcard = await Flashcard.findByIdAndUpdate(
             req.params.id,
             {
                 question: req.body.question,

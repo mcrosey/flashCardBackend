@@ -4,7 +4,7 @@ const Flashcard = require('./Flashcard');
 
 const deckSchema = mongoose.Schema({
     category: { type: String, required: true },
-    cards: [Flashcard.schema],
+    cards: {type :[Flashcard.schema] },
 });
 
 const Deck = mongoose.model('Deck', deckSchema);
