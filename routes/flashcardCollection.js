@@ -1,7 +1,7 @@
-const { FlashCard , validate } = require('../model/Flashcard');
+const FlashCard = require('../model/Flashcard');
 const express = require('express');
 const router = express.Router();
-const {FlashCardDeck} = require('../model/FlashcardDeck');
+const {Deck} = require('../model/Deck');
 
 router.post('/', async (req, res) => {
     try{
@@ -22,10 +22,10 @@ router.post('/', async (req, res) => {
     }
 });
 
-
+//gets entire database
 router.get('/', async (req, res) => {
     try {
-        const flashcard = await FlashCardDeck.find();
+        const flashcard = await Deck.find();
         return res.send(flashcard);
     }catch (ex) {
         return res.status(500).send(`Internal Server Error: ${ex}`);
@@ -35,7 +35,7 @@ router.get('/', async (req, res) => {
 
 router.get('/:id', async (req, res) => {
     try {
-        const flashcard = await FlashCardDeck.findById(req.params.id);
+        const flashcard = await Deck.findById(req.params.id);
 
         if (!flashcard)
             return res.status(400).send(`The product with id "${req.params.id}" does not exsist.`);
@@ -74,7 +74,7 @@ router.put('/:id', async (req, res) => {
 router.delete('/id', async (req, res) => {
     try {
       
-        const flashcard = await FlashCardDeck.findByIdAndRemove(req.params.id);
+        const flashcard = await Deck.findByIdAndRemove(req.params.id);
 
         if (!product)
             return res.status(400).send(`The product with id "${res.params.id}" does not exist.`);

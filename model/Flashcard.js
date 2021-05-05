@@ -1,13 +1,13 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 const Joi = require('joi');
 
 
 const flashcardSchema = new mongoose.Schema({
-    question: { type: String, required: true, minLength: 2, maxLength: 255 },
+    question: { type: String, required: true},
     answer: {type: String, required: true },
 });
 
-const FlashCard = mongoose.model('Flashcard', flashcardSchema);
+const Flashcard = mongoose.model("Flashcard", flashcardSchema);
 
 function validateFlashcard(flashcard) {
     const schema = Joi.object({
@@ -17,6 +17,6 @@ function validateFlashcard(flashcard) {
     return schema.validate(flashcard); 
 }
 
-exports.FlashCard = FlashCard;
+module.exports = Flashcard;
 exports.validate = validateFlashcard;
 exports.flashcardSchema = flashcardSchema;
