@@ -1,10 +1,10 @@
 const mongoose = require('mongoose');
 const Joi = require('joi');
-const Flashcard = require('./Flashcard');
+const {flashcardSchema} = require('./Flashcard');
 
 const deckSchema = mongoose.Schema({
     category: { type: String, required: true },
-    cards: {type :[Flashcard.schema] },
+    cards: {type :[flashcardSchema] },
 });
 
 const Deck = mongoose.model('Deck', deckSchema);
